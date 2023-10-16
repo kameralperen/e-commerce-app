@@ -1,0 +1,23 @@
+extends ../layouts/main-layout.pug
+
+block content
+    .row 
+        .col-md-3 
+            img(src = `/img/${product.imageUrl}` alt = `${product.description}`).img-fluid.mb-3
+
+        .col-md-9.ps-3 
+            h1.mb-3 #{product.name}
+            hr
+            .mb-3 
+                h4.text-danger.mb-3 Fiyat: #{product.price} TL
+                form(action="/cart", method="post").d-inline
+                    input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                    input(type="hidden", name="productId" value=`${product._id}`)
+                    button(type="submit").btn.btn-dark.btn-lg Sepete Ekle
+
+    .row 
+        .col-md-12 
+        hr
+        h3.text-danger Ürün Açıklaması ve Özellikleri :
+        p.p-3 #{product.description}
+            

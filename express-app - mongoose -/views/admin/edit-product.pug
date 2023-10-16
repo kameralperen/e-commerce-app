@@ -1,0 +1,34 @@
+extends ../layouts/main-layout.pug
+
+block content 
+    .col-lg-12
+        form(action="/admin/products" method="POST" enctype="multipart/form-data")
+            input(type="hidden" name="_csrf" value=`${csrfToken}`)
+            input(type="hidden", name="id", value = `${product._id}`)
+            .form-group.row
+                label(for="name").col-sm-2.col-form-label Ürün ismi:
+                .col-sm-10.my-2
+                    input(type="text" name="name" value = `${product.name}`).form-control#name
+            .form-group.row
+                label(for="price").col-sm-2.col-form-label Fiyat:
+                .col-sm-10.my-2
+                    input(type="text" name="price" value = `${product.price}`).form-control#price
+            .form-group.row
+                label(for="imageUrl").col-sm-2.col-form-label Fotoğraf:
+                .col-sm-10.my-2
+                    img(src=`/img/${product.imageUrl}` width='100')
+                    input(type="file" name="image" )#image 
+            .form-group.row.my-2
+                label(for="categoryids").col-sm-2.col-form-check-label Kategori:
+                .col-sm-10
+                    each category in categories
+                        input(type="checkbox" name="categoryids" value=`${category._id}` checked = category.selected).form-check-input.mx-2
+                        | #{category.name}
+            .form-group.row
+                label(for="description").col-sm-2.col-form-label Açıklama:
+                .col-sm-10.my-2
+                    textarea(id="editor" name="description" cols='30' rows='10').form-control #{product.description}
+            .form-group.row
+                .col-sm-10.my-2
+                    input(type="submit" value="Güncelle").btn.btn-warning.mt-2
+

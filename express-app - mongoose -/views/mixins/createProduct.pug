@@ -1,0 +1,16 @@
+mixin createProduct(product)
+    .col-md-4
+        .card
+            img(src=`/img/${product.imageUrl}`).card-img-top
+            .card-body
+                a(href=`/products/${product._id}`).nav-link   
+                    h4.card-title #{product.name} 
+                        p.card-text 
+                            small.text-muted #{product.price} TL 
+            .card-footer.text-center 
+                a(href=`/products/${product._id}`).btn.btn-info.btn-sm Detay
+
+                form(action="/cart", method="post").d-inline
+                    input(type="hidden" name="_csrf" value=`${csrfToken}`)
+                    input(type="hidden", name="productId" value=`${product._id}`)
+                    button(type="submit").btn.btn-outline-primary.btn-sm.ms-3 Sepete Ekle
